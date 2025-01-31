@@ -1,30 +1,30 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { SuperheroesService } from './superheroes.service';
 import { CreateSuperheroDto } from './dto/create-superhero.dto';
 
 /**
- * Controller that exposes superhero-related API endpoints.
+ * Controller handling superhero-related HTTP requests.
  */
 @Controller('superheroes')
 export class SuperheroesController {
   constructor(private readonly superheroesService: SuperheroesService) {}
 
   /**
-   * POST /superheroes
    * Adds a new superhero.
+   * @param superhero The superhero data.
+   * @returns The newly created superhero.
    */
   @Post()
-  create(@Body() createSuperheroDto: CreateSuperheroDto) {
-    this.superheroesService.create(createSuperheroDto);
-    return { message: 'Superhero added successfully!' };
+  create(@Body() superhero: CreateSuperheroDto): CreateSuperheroDto {
+    return this.superheroesService.create(superhero); // ✅ Returns new superhero
   }
 
   /**
-   * GET /superheroes
-   * Fetches superheroes, sorted by humility score.
+   * Retrieves all superheroes sorted by humility score.
+   * @returns The sorted superhero list.
    */
   @Get()
-  findAll() {
+  findAll(): CreateSuperheroDto[] {
     return this.superheroesService.findAll();
   }
 }

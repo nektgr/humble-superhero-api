@@ -11,9 +11,11 @@ export class SuperheroesService {
   /**
    * Adds a new superhero to the in-memory database.
    * @param superhero The superhero data.
+   * @returns The newly created superhero.
    */
-  create(superhero: CreateSuperheroDto): void {
+  create(superhero: CreateSuperheroDto): CreateSuperheroDto {
     this.superheroes.push(superhero);
+    return superhero; // ✅ Ensure the new superhero is returned
   }
 
   /**
