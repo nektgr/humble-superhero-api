@@ -1,99 +1,158 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Humble Superhero API 🦸‍♂️🦸‍♀️
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Welcome to the **Humble Superhero API** – where every hero shines with both power and humility! This API is a tribute to those extraordinary individuals who save the day without ever seeking the spotlight. Built with **NestJS**, it’s robust, well-tested, and ready for production-level awesomeness.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🚀 About This Project
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Humble Superhero API is designed to:
+- **Add New Superheroes:** Capture the name, superpower, and a humility score (1-10) of every hero.
+- **Retrieve Superheroes:** Fetch a sorted list of heroes by their humility score (highest first).
 
-## Project setup
+**Key Features:**
+- **Expressive Validation:** Powered by \`class-validator\` and \`class-transformer\` with clear Swagger documentation.
+- **Centralized Error Handling:** Custom global exception filters ensure consistency and clarity in error responses.
+- **Robust Testing:** Comprehensive unit and E2E tests covering various edge cases.
+- **Modular Architecture:** Clean separation of concerns for easy scalability and maintainability.
 
+---
+
+## 💾 Installation
+
+### Prerequisites
+- **Node.js** (v14 or later)
+- **npm** (v6 or later)
+
+### Steps to Install
+
+1. **Clone the Repository:**
+   ```bash
+   https://github.com/nektgr/humble-superhero-api.git
+   cd humble-superhero-api
+   ```
+
+2. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+
+---
+
+## ⚙️ Running the Application
+
+### In Development Mode
+Start the server locally:
 ```bash
-$ npm install
+npm run start
+```
+The API will be available at: [http://localhost:3000](http://localhost:3000)
+
+### In Production Mode
+For a production-ready build:
+```bash
+npm run start:prod
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## 🧪 Testing
 
-# watch mode
-$ npm run start:dev
+Our project is thoroughly tested! Run the following commands to verify everything works as expected:
 
-# production mode
-$ npm run start:prod
-```
+- **Run All Tests:**
+  ```bash
+  npm test
+  ```
 
-## Run tests
+- **Run End-to-End Tests:**
+  ```bash
+  npm run test:e2e
+  ```
 
-```bash
-# unit tests
-$ npm run test
+Tests cover:
+- **Unit Tests:** Individual modules, services, and DTO validations.
+- **E2E Tests:** API endpoints, error handling, and middleware integration using \`supertest\`.
 
-# e2e tests
-$ npm run test:e2e
+---
 
-# test coverage
-$ npm run test:cov
-```
+## 🔍 API Endpoints
 
-## Deployment
+### **POST** \`/superheroes\`
+- **Description:** Add a new superhero.
+- **Request Body Example:**
+  ```json
+  {
+    "name": "Captain Kindness",
+    "superpower": "Empathy & Compassion",
+    "humilityScore": 9
+  }
+  ```
+- **Responses:**
+  - \`201 Created\` – Superhero successfully added.
+  - \`400 Bad Request\` – Validation errors (e.g., duplicate hero, invalid inputs).
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### **GET** \`/superheroes\`
+- **Description:** Retrieve all superheroes, sorted by humility score (highest first).
+- **Response Example:**
+  ```json
+  [
+    {
+      "name": "Captain Kindness",
+      "superpower": "Empathy & Compassion",
+      "humilityScore": 9
+    },
+    {
+      "name": "Mighty Mentor",
+      "superpower": "Wisdom",
+      "humilityScore": 8
+    }
+  ]
+  ```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Access full API docs via **Swagger UI** at: [http://localhost:3000/api](http://localhost:3000/api)
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+---
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 🤝 Collaboration & Contribution
 
-## Resources
+This project was built with the spirit of teamwork and superhero camaraderie. If you’re interested in contributing:
+- **Fork & Clone:** Create your own branch.
+- **Commit with Care:** Write clear commit messages and detailed PR descriptions.
+- **Report Issues:** Use GitHub Issues to share bugs or propose new features.
 
-Check out a few resources that may come in handy when working with NestJS:
+*Remember, even superheroes sometimes need a sidekick!*
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+## 🕒 If I Had More Time…
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **Persistent Storage:** Integrate a database for long-term data persistence.
+- **Expanded API Features:** Add endpoints for updating and deleting superheroes.
+- **Real-Time Dashboard:** Build a React interface for live updates.
+- **Enhanced Security:** Implement rate limiting, CORS, and other security best practices.
+- **Advanced Logging:** Integrate a production-grade logging system (e.g., Winston).
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 📝 License
 
-## License
+This project is licensed under the MIT License.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## 📬 Contact
+
+For questions or collaboration opportunities:
+- **Email:** npapakwn@hotmail.com
+- **GitHub:** [nektgr](https://github.com/nektgr)
+
+---
+
+> **"With great power comes great humility."**  
+> — Your Friendly Neighborhood Developer 🕷️💥
+
+---
+
+Enjoy building amazing things with the **Humble Superhero API**! 🚀✨
+
