@@ -12,7 +12,7 @@ export class CreateSuperheroDto {
 
   @ApiProperty({ description: 'Superhero special ability', example: 'Helping others' })
   @IsString()
-  @Length(3, 100, { message: 'Superpower must be between 5 and 100 characters.' })
+  @Length(5, 100, { message: 'Superpower must be between 5 and 100 characters.' })
   @Transform(({ value }) => value.trim()) // ✅ Trim spaces
   superpower: string;
 
