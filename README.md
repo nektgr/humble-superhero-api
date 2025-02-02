@@ -28,7 +28,7 @@ The Humble Superhero API is designed to:
 
 1. **Clone the Repository:**
    ```bash
-   https://github.com/nektgr/humble-superhero-api.git
+   git clone https://github.com/nektgr/humble-superhero-api.git
    cd humble-superhero-api
    ```
 
