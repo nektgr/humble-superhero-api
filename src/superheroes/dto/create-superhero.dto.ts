@@ -1,8 +1,11 @@
-// src/superheroes/dto/create-superhero.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsInt, Min, Max, IsString, Length, Matches } from 'class-validator';
 import { Transform } from 'class-transformer';
 
+/**
+ * Data Transfer Object for creating a new superhero.
+ * Applies validation rules and transformations to the incoming data.
+ */
 export class CreateSuperheroDto {
   @ApiProperty({
     description: 'Superhero name. Must be between 3 and 30 alphanumeric characters.',

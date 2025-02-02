@@ -13,6 +13,7 @@ export class SuperheroesService {
 
   /**
    * Adds a new superhero to the in-memory database.
+   *
    * @param superheroDto The superhero data.
    * @returns The newly created superhero.
    * @throws DuplicateSuperheroException if the superhero name already exists.
@@ -21,33 +22,32 @@ export class SuperheroesService {
   create(superheroDto: CreateSuperheroDto): CreateSuperheroDto {
     this.logger.log(`Attempting to add superhero: ${superheroDto.name}`);
 
-    // ✅ Prevent duplicate superheroes
+    // Prevent duplicate superheroes (case-insensitive)
     if (this.superheroes.some(hero => hero.name.toLowerCase() === superheroDto.name.toLowerCase())) {
       this.logger.warn(`Duplicate superhero detected: ${superheroDto.name}`);
       throw new DuplicateSuperheroException(superheroDto.name);
     }
 
-    // ✅ Validate humility score (if needed outside DTO)
+    // Validate humility score
     if (superheroDto.humilityScore < 1 || superheroDto.humilityScore > 10) {
       this.logger.error(`Invalid humility score received: ${superheroDto.humilityScore}`);
       throw new InvalidHumilityScoreException();
     }
 
-    // ✅ Add superhero to the in-memory database
+    // Add superhero to the in-memory database
     this.superheroes.push(superheroDto);
     this.logger.log(`Superhero ${superheroDto.name} added successfully!`);
     
-    return superheroDto; // ✅ Return the newly added superhero
+    return superheroDto;
   }
 
   /**
-   * Retrieves all superheroes, sorted by humility score (highest first).
+   * Retrieves all superheroes, sorted by humility score in descending order.
+   *
    * @returns Sorted list of superheroes.
    */
   findAll(): CreateSuperheroDto[] {
     this.logger.log('Fetching all superheroes...');
-
-    // ✅ Sorting a **copy** to avoid modifying the original array (best practice)
     return [...this.superheroes].sort((a, b) => b.humilityScore - a.humilityScore);
   }
 }
