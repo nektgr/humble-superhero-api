@@ -1,0 +1,43 @@
+import { Injectable, NestMiddleware, Logger } from '@nestjs/common';
+import { Request, Response, NextFunction } from 'express';
+
+@Injectable()
+export class LoggingMiddleware implements NestMiddleware {
+  private logger = new Logger('HTTP');
+
+  use(req: Request, res: Response, next: NextFunction) {
+    const { method, originalUrl, body } = req;
+    const startTime = Date.now();
+    const requestBody = { ...body };
+
+    // ✅ Remove sensitive data (if any)
+    delete requestBody.password;
+
+    this.logger.log(
+      `📥 Request: ${method} ${originalUrl} - Payload: ${JSON.stringify(requestBody)}`
+    );
+
+    res.on('finish', () => {
+      const duration = Date.now() - startTime;
+      const statusColor = res.statusCode >= 400 ? '\x1b[31m' : '\x1b[32m'; // Red for errors, green for success
+      const resetColor = '\x1b[0m';
+
+      if (res.statusCode >= 400) {
+        this.logger.warn(
+          `${statusColor}❌ ERROR: ${method} ${originalUrl} - ${res.statusCode} (${duration}ms)${resetColor}`
+        );
+      } else {
+        this.logger.log(
+          `${statusColor}✅ SUCCESS: ${method} ${originalUrl} - ${res.statusCode} (${duration}ms)${resetColor}`
+        );
+      }
+
+      // 🔥 Flag slow requests (> 500ms)
+      if (duration > 500) {
+        this.logger.warn(`⚠️ SLOW REQUEST: ${method} ${originalUrl} took ${duration}ms`);
+      }
+    });
+
+    next();
+  }
+}
